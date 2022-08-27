@@ -1,0 +1,29 @@
+[
+    {
+        "name":"Neo",
+        "gender":"male",
+        "email":"neo@matrix.com",
+        "status":"active"
+    },
+
+    {
+        "name":"Trinity",
+        "gender":"female",
+        "email":"trinity@matrix.com",
+        "status":"active"
+    },
+
+    {
+        "name":"Morpheus",
+        "gender":"male",
+        "email":"morpheus@matrix.com",
+        "status":"active"
+    },
+
+    {
+        "name":"Smith",
+        "gender":"male",
+        "email":"smith@matrix.com",
+        "status":"active"
+    }
+]

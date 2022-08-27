@@ -1,0 +1,4 @@
+email,first_name,last_name,position,company,company_industry,company_size,confidence_score,website,custom_attributes,customer_id
+morpheus@morpheus.com,Morpheus,Matrix,Software Developer,Unreal CO,Internet and Telecom,201-500 employees,97,itsunreal.com.br,cus-1284abcd
+neo@morpheus.com,Thomas,Anderson,Software Developer,Red Pill CO,Internet and Telecom,201-500 employees,97,itsunreal.com.br,cus-1384abcd
+trinity@matrix.com,Trinity,Matrix,Software Developer,Unreal CO,Internet and Telecom,201-500 employees,97,itsunreal.com.br,cus-2284abcd

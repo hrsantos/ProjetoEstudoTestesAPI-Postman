@@ -1,0 +1,73 @@
+ 
+EXECUÇÃO VIA LINHA DE COMANDO UTILIZANDO NEWMAN (COLLECTION RUNNER)
+
+REFERÊNCIAS SOBRE NEWMAN:
+https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/
+
+EXECUTANDO TESTES COM ARQUIVOS LOCAIS
+-------------------------------------
+
+NO PROMPT, DIGITE NEWMAN RUN E EM SEGUIDA O CAMINHO DO ARQUIVO DA COLLECTION EXPORTADA:
+
+newman run C:\Users\harol\Documents\Postman\Testes_Newman\Go_Rest_API_com_Arquivos_de_Dados_postmanCollection.json
+
+SE A COLLECTION A SER EXECUTADA TIVER DEPENDÊNCIA DE VARIÁVEIS DE AMBIENTE, SERÁ PRECISO EXPORTAR AS VARIÁVEIS LOCALMENTE E EXECUTAR 
+UTILIZANDO -E + CAMINHO DO ARQUIVO DO AMBIENTE, COMO COMPLEMENTO AO COMANDO ANTERIOR:
+
+newman run C:\Users\harol\Documents\Postman\Testes_Newman\Go_Rest_API_com_Arquivos_de_Dados_postmanCollection.json -e C:\Users\harol\Documents\Postman\Testes_Newman\Testes_postman_environment.json
+
+SE FOR UTILIZADO ARQUIVOS CSV, SERÁ NECESSÁRIO INSERIR NO COMANDO O CAMINHO DO ARQUIVO CSV:
+
+newman run C:\Users\harol\Documents\Postman\Testes_Newman\Go_Rest_API_com_Arquivos_de_Dados_postmanCollection.json -e C:\Users\harol\Documents\Postman\Testes_Newman\Testes_postman_environment.json -d C:\Users\harol\Documents\Postman\ArquivosDados_Postman\BaseCSV.csv
+
+OUTROS COMANDOS:
+
+-h =  Abre o menu de ajuda
+--folder [nome da pasta] = Executa uma pasta específica da coleção
+-n = informa o número de iterações
+--delay-request [número me milisegundos] = Especifica um delay entre requisições
+--bail = Pára a execução se algum teste falhar
+--verbose = exibe maiores detalhes da execução de cada request
+--silent = não exibe o output da execução (não apresenta nada na tela durante a execução)
+--suppress-exit-code 1 (utilizado no Jenkins para evitar a interrupção do log quando houver falha)
+
+
+EXECUTANDO TESTES VIA POSTMAN API (ONLINE)
+------------------------------------------
+
+A EXECUÇÃO VIA LINHA DE COMANDO UTILIZANDO O POSTMAN API FACILITA, POIS OS TESTES SÃO EXECUTADOS VIA URL DAS COLEÇÕES E AMBIENTES.
+BASTA CRIAR A KEY DO POSTMAN API E EXTRAIR AS CHAVES NECESSÁRIAS DAS COLEÇÕES E AMBIENTES, QUE PODERÃO SER ACESSADOS PELOS LINKS 
+CONFORME DESCRITO ABAIXO:
+
+
+Key Postman: PMAK-624367f5c92c4d6da794066c-955a3d32d267324a7ce53ab7adc69d34a3
+
+1 - Lista de coleções: https://api.getpostman.com/collections?apikey=$apikey
+https://api.getpostman.com/collections?apikey=PMAK-624367f5c92c4d6da794066c-955a3d32d267324a7ce53ab7adc69d34a3
+
+2 - Pegar coleção pelo UID: https://api.getpostman.com/collections$udi?apikey=$apikey
+https://api.getpostman.com/collections/19665815-bb8d8f3a-f5e7-41aa-af97-645d6156012e?apikey=PMAK-624367f5c92c4d6da794066c-955a3d32d267324a7ce53ab7adc69d34a3
+UID Collection: 19665815-bb8d8f3a-f5e7-41aa-af97-645d6156012e
+
+3 - Obter URL do ambiente: https://api.getpostman.com/environments?apikey=PMAK-624367f5c92c4d6da794066c-955a3d32d267324a7ce53ab7adc69d34a3
+UID Ambiente: 19665815-03861d7f-6a65-4934-8e53-a0dbd32f5c66
+
+COMANDO PARA EXECUTAR VIA PROMPT UTILIZANDO O NEWMAN:
+newman run https://api.getpostman.com/collections/19665815-bb8d8f3a-f5e7-41aa-af97-645d6156012e?apikey=PMAK-624367f5c92c4d6da794066c-955a3d32d267324a7ce53ab7adc69d34a3 --environment https://api.getpostman.com/environments/19665815-03861d7f-6a65-4934-8e53-a0dbd32f5c66?apikey=PMAK-624367f5c92c4d6da794066c-955a3d32d267324a7ce53ab7adc69d34a3
+
+(de7b0007683648f8962f99313b8dc5d1 Chave Jenkins)
+
+
+GERAÇÃO DE RELATÓRIOS UTILIZANDO NEWMAN HTML REPORTER
+-----------------------------------------------------
+
+PARA GERAR RELATÓRIOS SIMPLES EM HTML DAS EXECUÇÕES UTILIZANDO O NEWMAN, BASTA UTILIZAR O COMANDO -r html
+AO FINAL DA LINHA DE COMANDO DO TESTE, CONFORME APRESENTADO ABAIXO:
+
+newman run C:\Users\harol\Documents\Postman\Testes_Newman\Go_Rest_API_com_Arquivos_de_Dados_postmanCollection.json -e C:\Users\harol\Documents\Postman\Testes_Newman\Testes_postman_environment.json -d C:\Users\harol\Documents\Postman\ArquivosDados_Postman\BaseCSV.csv -r html
+
+É POSSÍVEL UTILIZAR TEMPLATES MAIS ELABORADOS, BASTANDO APONTAR O TEMPLATE COMFORME COMANDO ABAIXO: (requisição do teste + formato da saída + caminho template + caminho do report)
+
+newman run Go_Rest_API_com_Arquivos_de_Dados_postmanCollection.json -e C:\Users\harol\Documents\Postman\Testes_Newman\Testes_postman_environment.json -d C:\Users\harol\Documents\Postman\ArquivosDados_Postman\BaseCSV.csv --reporters cli,html --reporter-html-template templates/htmlreqres.hbs --reporter-html-export report/testeGoRestAPI.html
+
+OUTRA OPÇÃO PARA GERAR RELATÓRIOS ELABORADOS EM HTML DAS EXECUÇÕES UTILIZANDO O NEWMAN, É O COMANDO -R HTMLEXTRA. ELE PODE SER PERSONALIZADO COM COMANDOS EXTRAS QUE ENCONTRAM-SE NO EXCEL.
